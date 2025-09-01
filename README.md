@@ -29,10 +29,6 @@ for (const elementI of document.getElementsByTagName('img')) {
 		{
 			elementI.className = elementI.className.replace(imageClass, '');
 		}
-		else 
-		{
-			console.log(elementI.className);
-		}
 	}
 }
 ```  
