@@ -4,9 +4,11 @@ Automatically unblurs preview image of videos, and removes 'This video is age-re
 
 ```
 var elementsToRemove = [];
+const classElementsToRemove = 'vkitVideoCardRestrictionOverlay__restriction';
+const imageSrcToRemove = ['imgBlurredSizeS'];
 
 for (const divI of document.getElementsByTagName('div')) {
-	if (divI.className && divI.className.includes('vkitVideoCardRestrictionOverlay__restriction'))
+	if (divI.className && divI.className.includes(classElementsToRemove))
 	{
 		elementsToRemove.push(divI);
     }
@@ -16,10 +18,17 @@ for (const divI of elementsToRemove) {
 	divI.remove();
 }
 
-for (const divI of document.getElementsByTagName('img')) {
-	if (divI.src && divI.src.includes('__imgBlurredSizeS'))
-	{
-		divI.src = divI.src.replace('__imgBlurredSizeS', '');
-    }
+for (const elementI of document.getElementsByTagName('img')) {
+	for (const imageClass of imageSrcToRemove) {
+		if (elementI.src && elementI.src.includes(imageSrcToRemove))
+		{
+			elementI.src = elementI.src.replace(imageSrcToRemove, '');
+		}
+		
+		if (elementI.className && elementI.className.includes(imageSrcToRemove))
+		{
+			elementI.className = elementI.className.replace(imageSrcToRemove, '');
+		}
+	}
 }
 ```  
