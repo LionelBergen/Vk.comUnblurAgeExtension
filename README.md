@@ -4,8 +4,8 @@ Automatically unblurs preview image of videos, and removes 'This video is age-re
 
 ```
 var elementsToRemove = [];
-const classElementsToRemove = 'vkitVideoCardRestrictionOverlay__restriction';
-const imageSrcToRemove = ['imgBlurredSizeS'];
+var classElementsToRemove = 'vkitVideoCardRestrictionOverlay__restriction';
+var imageSrcToRemove = ['imgBlurredSizeS', 'VideoRestriction'];
 
 for (const divI of document.getElementsByTagName('div')) {
 	if (divI.className && divI.className.includes(classElementsToRemove))
@@ -30,5 +30,5 @@ for (const elementI of document.getElementsByTagName('img')) {
 			elementI.className = elementI.className.replace(imageSrcToRemove, '');
 		}
 	}
-}
+}   
 ```  
