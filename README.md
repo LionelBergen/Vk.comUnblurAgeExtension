@@ -19,6 +19,15 @@ for (const divI of elementsToRemove) {
 }
 
 for (const elementI of document.getElementsByTagName('img')) {
+	replaceProperties(elementI)
+}
+
+for (const elementI of document.getElementsByTagName('div')) {
+	replaceProperties(elementI)
+}
+
+function replaceProperties(elementI)
+{
 	for (const imageClass of imageSrcToRemove) {
 		if (elementI.src && elementI.src.includes(imageSrcToRemove))
 		{
