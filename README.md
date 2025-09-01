@@ -25,10 +25,14 @@ for (const elementI of document.getElementsByTagName('img')) {
 			elementI.src = elementI.src.replace(imageSrcToRemove, '');
 		}
 		
-		if (elementI.className && elementI.className.includes(imageSrcToRemove))
+		if (elementI.className && elementI.className.includes(imageClass))
 		{
-			elementI.className = elementI.className.replace(imageSrcToRemove, '');
+			elementI.className = elementI.className.replace(imageClass, '');
+		}
+		else 
+		{
+			console.log(elementI.className);
 		}
 	}
-}   
+}
 ```  
