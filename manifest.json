@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "VK Image Unblur",
+  "version": "1.0",
+  "description": "Removes certain classnames and blue properties from images on vk.com",
+  "content_scripts": [
+    {
+      "matches": ["*://*.vk.com/*", "*://*.vkvideo.ru/*"],
+      "js": ["script.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

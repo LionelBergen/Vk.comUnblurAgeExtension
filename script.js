@@ -1,13 +1,10 @@
-# Vk.comUnblurAgeExtension   
-Automatically unblurs preview image of videos, and removes 'This video is age-restricted ... watch', making all videos act the same as non-age restricted videos       
-
-Below is some old code, used to do the same thing but the code must be pasted in dev console on a browser;     
-```
 var elementsToRemove = [];
 var classElementsToRemove = 'vkitVideoCardRestrictionOverlay__restriction';
+var classElementsLinkToChange = 'fans_fan_lnk';
 var imageSrcToRemove = ['imgBlurredSizeS', 'VideoRestriction'];
 var loopInterval = 5000;
 var loop = true;
+var changeURLToVideo = true;
 
 function replaceProperties(elementI)
 {
@@ -21,6 +18,14 @@ function replaceProperties(elementI)
 		{
 			elementI.className = elementI.className.replace(imageClass, '');
 		}
+	}
+}
+
+function removeDivProperties(elementI)
+{
+	if (elementI.className && elementI.className.includes(classElementsToRemove))
+	{
+		elementI.remove();
 	}
 }
 
@@ -44,9 +49,29 @@ function removeRestrictionFilter()
 	for (const elementI of document.getElementsByTagName('div')) {
 		replaceProperties(elementI)
 	}
+	
+	for (const divWithLink of document.getElementsByClassName(classElementsLinkToChange)) {
+		divWithLink.href = divWithLink.href.replace("https://vk.com/", "https://vkvideo.ru/@");
+	}
 }
 
 if(loop) {
-	setInterval(removeRestrictionFilter, loopInterval);
+	// setInterval(removeRestrictionFilter, loopInterval);
 }
-```  
+
+const observer = new MutationObserver(mutations => {
+	for (const mutation of mutations) {
+		mutation.addedNodes.forEach(node => {
+			if (node.nodeType === Node.ELEMENT_NODE) {
+				node.querySelectorAll?.("img").forEach(replaceProperties);
+				node.querySelectorAll?.('div').forEach(removeDivProperties);
+			}
+		});
+	}
+});
+
+
+observer.observe(document.documentElement, {
+	childList: true,
+	subtree: true
+});
